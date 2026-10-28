@@ -40,6 +40,7 @@
   - 🐱 **Neko the Cat**: Loves snacks and cozy commits.
   - 🦖 **Rex the T-Rex**: Smashes bugs with primal rawr power.
   - 🦀 **Ferris the Crab**: Memory safe and blazing fast.
+  - 🐕 **Shiba the Doge**: Much commits! Very speed! Such 10x!
 - ⚡ **Auto-detects Today's Commits**: Automatically reads `git log --since="midnight"` from your active repo.
 - 🔥 **Mood & Health States**:
   - `🔥 GOD MODE` (20+ commits): Sunglasses on, max energy, pure 10x developer aura!
@@ -111,6 +112,26 @@ Or run it as a Git `post-commit` hook!
 ```bash
 python -m unittest discover -s tests
 ```
+
+---
+
+## 🇷🇺 Краткая инструкция на русском
+
+1. **Запуск и просмотр питомца**:
+   ```bash
+   python gotchi.py status
+   ```
+2. **Выбор питомца** (кот, динозавр, краб, сиба-ину):
+   ```bash
+   python gotchi.py --pet dog status
+   python gotchi.py --pet cat status
+   ```
+3. **Взаимодействие**:
+   ```bash
+   python gotchi.py pet   # Погладить (+15% счастья)
+   python gotchi.py feed  # Покормить коммит-снеком
+   python gotchi.py watch # Живой режим анимации
+   ```
 
 ---
 
