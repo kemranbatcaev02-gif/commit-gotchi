@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# Commit-Gotchi post-commit hook
+# Automatically shows your pet's reaction after every commit!
+#
+# To install:
+#   cp hooks/post-commit.sample .git/hooks/post-commit
+#   chmod +x .git/hooks/post-commit
+
+python path/to/commit-gotchi/gotchi.py status
