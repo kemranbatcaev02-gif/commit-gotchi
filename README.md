@@ -120,6 +120,15 @@ python -m unittest discover -s tests
 
 ---
 
+## 📚 Полезные разделы
+
+- 🐾 [Досье питомцев и их характеры (SPECIES.md)](SPECIES.md)
+- ❓ [Часто задаваемые вопросы (FAQ.md)](FAQ.md)
+- 🤝 [Как добавить своего питомца (CONTRIBUTING.md)](CONTRIBUTING.md)
+- 📜 [История изменений (CHANGELOG.md)](CHANGELOG.md)
+
+---
+
 ## 📜 Лицензия
 
 Распространяется под свободной лицензией MIT.
