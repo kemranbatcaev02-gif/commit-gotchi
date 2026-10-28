@@ -131,6 +131,45 @@ PETS = {
             r"  / |_|_|_| \ ",
         ],
     },
+    "dog": {
+        "name": "Shiba",
+        "species": "Shiba Inu",
+        "godmode": [
+            r"    / \__      🐕 MUCH COMMITS! VERY 10X! 🐕",
+            r"   (    ⌐■\___ {commits} COMMITS TODAY! WOW!",
+            r"   /  ⚡      O SUCH PRODUCTION! VERY SPEED!",
+            r"  /   (_____/ ",
+            r" /_____/   U  ",
+        ],
+        "super_happy": [
+            r"    / \__      ✨ HAPPY DOGE ✨",
+            r"   (    ^ \___ {commits} commits today! Woof!",
+            r"   /  💖      O *Tails wagging at maximum speed*",
+            r"  /   (_____/ ",
+            r" /_____/   U  ",
+        ],
+        "happy": [
+            r"    / \__     ",
+            r"   (    • \___ {commits} commits today",
+            r"   /          O Woof! Good job human!",
+            r"  /   (_____/ ",
+            r" /_____/   U  ",
+        ],
+        "hungry": [
+            r"    / \__      💧 HUNGRY DOGE",
+            r"   (    ╥ \___ 0 commits today",
+            r"   /  ~       O *Whimpers for commits*",
+            r"  /   (_____/ ",
+            r" /_____/   U  ",
+        ],
+        "dead": [
+            r"    / \__      💀 SLEEPING DOGE",
+            r"   (    x \___ 0 commits for days",
+            r"   /          O Zzz... Dreaming of git pushes",
+            r"  /   (_____/ ",
+            r" /_____/   U  ",
+        ],
+    },
 }
 
 QUOTES_GODMODE = [
@@ -296,7 +335,7 @@ def cmd_watch(pet_type: str, commits: int, state: dict):
 def main():
     parser = argparse.ArgumentParser(description="Commit-Gotchi: Terminal virtual pet powered by Git")
     parser.add_argument("command", nargs="?", default="status", choices=["status", "pet", "feed", "watch", "reset"], help="Action to perform")
-    parser.add_argument("--pet", choices=["cat", "dino", "crab"], default=None, help="Choose your pet companion")
+    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog"], default=None, help="Choose your pet companion")
     parser.add_argument("--commits", type=int, default=None, help="Simulate or override today's commit count")
     parser.add_argument("--feed-snack", type=int, default=1, help="Number of snacks to feed with 'feed'")
 
