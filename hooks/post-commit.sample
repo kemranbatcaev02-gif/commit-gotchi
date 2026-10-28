@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-# Commit-Gotchi post-commit hook
-# Automatically shows your pet's reaction after every commit!
+# Git-хук Commit-Gotchi
+# Автоматически показывает реакцию питомца после каждого коммита!
 #
-# To install:
+# Как установить:
 #   cp hooks/post-commit.sample .git/hooks/post-commit
 #   chmod +x .git/hooks/post-commit
 

@@ -2,112 +2,117 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.8+"/>
-  <img src="https://img.shields.io/badge/Dependencies-Zero-success?style=for-the-badge" alt="Zero Dependencies"/>
-  <img src="https://img.shields.io/badge/Vibe-10x%20Developer-orange?style=for-the-badge" alt="Vibe"/>
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/Зависимости-Ноль-success?style=for-the-badge" alt="Без зависимостей"/>
+  <img src="https://img.shields.io/badge/Вайб-10x%20Разработчик-orange?style=for-the-badge" alt="Вайб"/>
+  <img src="https://img.shields.io/badge/Лицензия-MIT-blue?style=for-the-badge" alt="Лицензия MIT"/>
 </p>
 
-> A charming terminal virtual pet that feeds on your Git commits! Keeps you motivated, happy, and shipping code. 🚀
+> Очаровательный виртуальный питомец прямо в терминале, который питается вашими коммитами в Git! Мотивирует писать код, радовать питомца и держать зелёный график в тонусе. 🚀
 
 ---
 
-## 📺 Terminal Demo
+## 📺 Демонстрация в терминале
 
 ```text
 ╭────────────────────────────────────────────────╮
-│  👾 COMMIT-GOTCHI: Neko the Cat                │
+│  👾 COMMIT-GOTCHI: Neko (Котик)                │
 ├────────────────────────────────────────────────┤
-│      /\_/\   🔥 GOD MODE 🔥                     │
-│     (⌐■_■)  Commits: 20 today!                 │
-│    =(  ^  )=  LEVEL: MAXIMUM OVERDRIVE!        │
+│      /\_/\   🔥 РЕЖИМ БОГА 🔥                   │
+│     (⌐■_■)  Коммитов сегодня: 20!              │
+│    =(  ^  )=  УРОВЕНЬ: МАКСИМАЛЬНЫЙ РАЗГОН!    │
 │      U   U                                     │
 ├────────────────────────────────────────────────┤
-│  Mood:       🔥 GODLIKE (10x Dev)              │
-│  Commits:    20 today                          │
-│  Satiety:    [████████████████] 100%           │
-│  Energy:     [████████████████] 100%           │
-│  Happiness:  [███████████████░] 95%            │
+│  Настроение: 🔥 БОЖЕСТВЕННОЕ (10x Dev)         │
+│  Коммитов:   20 сегодня                        │
+│  Сытость:    [████████████████] 100%           │
+│  Энергия:    [████████████████] 100%           │
+│  Счастье:    [███████████████░] 95%            │
 ├────────────────────────────────────────────────┤
-│  💬 "🚀 Keyboard on fire! Legendary productivity detected!"│
+│  💬 "🚀 Клавиатура пылает! Зафиксирована легендарная продуктивность!"│
 ╰────────────────────────────────────────────────╯
 ```
 
 ---
 
-## ✨ Features
+## ✨ Возможности
 
-- 🐾 **Multiple Pets**:
-  - 🐱 **Neko the Cat**: Loves snacks and cozy commits.
-  - 🦖 **Rex the T-Rex**: Smashes bugs with primal rawr power.
-  - 🦀 **Ferris the Crab**: Memory safe and blazing fast.
-  - 🐕 **Shiba the Doge**: Much commits! Very speed! Such 10x!
-- ⚡ **Auto-detects Today's Commits**: Automatically reads `git log --since="midnight"` from your active repo.
-- 🔥 **Mood & Health States**:
-  - `🔥 GOD MODE` (20+ commits): Sunglasses on, max energy, pure 10x developer aura!
-  - `✨ ECSTATIC` (5–19 commits): Well-fed and energized.
-  - `😊 CONTENT` (1–4 commits): Healthy and happy.
-  - `💧 STARVING` (0 commits): Pleads for you to push some code.
-  - `💀 EXTINCT / SLEEPING` (inactive): Hibernates until you code again.
-- 🖐️ **Interactive Actions**:
-  - `gotchi pet`: Pat your pet to boost happiness.
-  - `gotchi feed`: Treat it with snacks.
-  - `gotchi watch`: Real-time animated terminal buddy.
-- 📦 **Zero External Dependencies**: Standard Python library only!
+- 🐾 **Разные виды питомцев**:
+  - 🐱 **Neko (Котик)**: Любит ласку и уютные коммиты.
+  - 🦖 **Rex (Динозавр)**: Раздавливает баги первобытным грозным рыком.
+  - 🦀 **Ferris (Краб)**: Быстрый, безопасный по памяти и клешнерукий краб из мира Rust.
+  - 🐕 **Shiba (Сиба-ину)**: Much commits! Very speed! Настоящий верный пёс-программист.
+- ⚡ **Автоматический подсчет коммитов за день**: Сам считывает историю через `git log --since="midnight"` из вашего активного репозитория.
+- 🔥 **Шкала эмоций и состояний**:
+  - `🔥 РЕЖИМ БОГА` (от 20 коммитов в день): Питомец надевает крутые очки, сытость и энергия на 100%, аура 10x сеньора!
+  - `✨ ВОСТОРГ` (5–19 коммитов): Сытый, бодрый и жизнерадостный.
+  - `😊 ДОВОЛЕН` (1–4 коммита): Нормальный рабочий день, сыт и спокоен.
+  - `💧 ГОЛОДАЕТ` (0 коммитов): Жалобно просит запушить хотя бы маленький фикс.
+  - `💀 СПЯЧКА / ИСЧЕЗНУВШИЙ` (несколько дней без кода): Впадает в спячку, пока вы не вернетесь к кодингу.
+- 🖐️ **Интерактивные действия**:
+  - `gotchi pet`: Погладить питомца (+15% к шкале счастья).
+  - `gotchi feed`: Угостить коммит-снеком.
+  - `gotchi watch`: Живой режим терминальной анимации питомца в реальном времени.
+- 📦 **Ноль внешних библиотек**: Только чистый стандартный Python 3.8+!
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Быстрый старт
 
-### 1. Check Pet Status
+### 1. Проверить статус питомца
 ```bash
 python gotchi.py status
 ```
 
-### 2. Choose Your Pet
+### 2. Выбрать своего компаньона
 ```bash
-python gotchi.py --pet cat
-python gotchi.py --pet dino
-python gotchi.py --pet crab
+python gotchi.py --pet cat status
+python gotchi.py --pet dino status
+python gotchi.py --pet crab status
+python gotchi.py --pet dog status
 ```
 
-### 3. Interact with Your Pet
+### 3. Взаимодействие
 ```bash
-# Pet your gotchi (raises happiness!)
+# Погладить (поднимает уровень счастья)
 python gotchi.py pet
 
-# Feed a commit snack
+# Покормить вкусным коммит-снеком
 python gotchi.py feed
 
-# Watch live animations
+# Запустить живую анимацию в терминале
 python gotchi.py watch
 ```
 
-### 4. Test Different Moods
+### 4. Тестирование разных настроений
 ```bash
-# Simulate 20 commits for God Mode:
+# Проверить режим бога (20 коммитов):
 python gotchi.py status --commits 20
 
-# Simulate 0 commits:
+# Проверить голодного питомца (0 коммитов):
 python gotchi.py status --commits 0
 ```
 
 ---
 
-## 💡 Shell Integration (Fun Tip!)
+## 💡 Автозапуск после каждого коммита (Git Hook)
 
-Want your pet to greet you every time you open a terminal or push code?
-Add this alias to your `.bashrc` or PowerShell `$PROFILE`:
+Хотите, чтобы питомец встречал вас радостной мордочкой после каждого выполненного коммита?
 
-```powershell
-# PowerShell:
-function gotchi { python path\to\commit-gotchi\gotchi.py @args }
+Просто подключите Git-хук:
+```bash
+# Скопируйте готовый шаблон хука в вашу папку .git:
+cp hooks/post-commit.sample .git/hooks/post-commit
+chmod +x .git/hooks/post-commit
 ```
 
-Or run it as a Git `post-commit` hook!
+Либо добавьте псевдоним (alias) в ваш `.bashrc` или `$PROFILE` в PowerShell:
+```powershell
+function gotchi { python C:\путь\к\commit-gotchi\gotchi.py @args }
+```
 
 ---
 
-## 🧪 Testing
+## 🧪 Запуск тестов
 
 ```bash
 python -m unittest discover -s tests
@@ -115,26 +120,6 @@ python -m unittest discover -s tests
 
 ---
 
-## 🇷🇺 Краткая инструкция на русском
+## 📜 Лицензия
 
-1. **Запуск и просмотр питомца**:
-   ```bash
-   python gotchi.py status
-   ```
-2. **Выбор питомца** (кот, динозавр, краб, сиба-ину):
-   ```bash
-   python gotchi.py --pet dog status
-   python gotchi.py --pet cat status
-   ```
-3. **Взаимодействие**:
-   ```bash
-   python gotchi.py pet   # Погладить (+15% счастья)
-   python gotchi.py feed  # Покормить коммит-снеком
-   python gotchi.py watch # Живой режим анимации
-   ```
-
----
-
-## 📜 License
-
-MIT License. Free to star and share! ⭐
+Распространяется под свободной лицензией MIT.

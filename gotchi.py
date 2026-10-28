@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Commit-Gotchi 👾
-A charming terminal virtual pet that thrives on your Git commits!
+Очаровательный виртуальный питомец в терминале, питающийся вашими коммитами в Git!
 """
 
 import argparse
@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-# Fix Windows console UTF-8 output
+# Поддержка UTF-8 на консолях Windows
 if hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -26,146 +26,146 @@ STATE_FILE = Path.home() / ".commit_gotchi_state.json"
 PETS = {
     "cat": {
         "name": "Neko",
-        "species": "Cat",
+        "species": "Котик",
         "godmode": [
-            r"    /\_/\   🔥 GOD MODE 🔥",
-            r"   (⌐■_■)  Commits: {commits} today!",
-            r"  =(  ^  )=  LEVEL: MAXIMUM OVERDRIVE!",
+            r"    /\_/\   🔥 РЕЖИМ БОГА 🔥",
+            r"   (⌐■_■)  Коммитов сегодня: {commits}!",
+            r"  =(  ^  )=  УРОВЕНЬ: МАКСИМАЛЬНЫЙ РАЗГОН!",
             r"    U   U",
         ],
         "super_happy": [
-            r"    /\_/\   ✨ HAPPY & ENERGIZED ✨",
-            r"   (^ ‿ ^)  Commits: {commits} today",
-            r"  =(  ^  )=  Purr... Delicious commits!",
+            r"    /\_/\   ✨ СЫТЫЙ И СЧАСТЛИВЫЙ ✨",
+            r"   (^ ‿ ^)  Коммитов сегодня: {commits}",
+            r"  =(  ^  )=  Мурр... Вкуснейшие коммиты!",
             r"    U   U",
         ],
         "happy": [
             r"    /\_/\ ",
-            r"   (• ‿ •)  Commits: {commits} today",
-            r"  =(  .  )=  Nice work! Keep going!",
+            r"   (• ‿ •)  Коммитов сегодня: {commits}",
+            r"  =(  .  )=  Хорошая работа! Пиши ещё код!",
             r"    U   U",
         ],
         "hungry": [
-            r"    /\_/\   💧 HUNGRY",
-            r"   (╥ ﹏ ╥) Commits: 0 today",
-            r"  =(  ~  )=  Please feed me code...",
+            r"    /\_/\   💧 ГОЛОДАЕТ",
+            r"   (╥ ﹏ ╥) Коммитов сегодня: 0",
+            r"  =(  ~  )=  Пожалуйста, покорми меня кодом...",
             r"    U   U",
         ],
         "dead": [
-            r"    /\_/\   💀 HIBERNATING",
-            r"   (x . x)  Commits: 0 for days...",
-            r"  =(  -  )=  *Ghostly meow*",
+            r"    /\_/\   💀 В СПЯЧКЕ",
+            r"   (x . x)  Ни одного коммита за дни...",
+            r"  =(  -  )=  *Призрачное мяу*",
             r"    U   U",
         ],
     },
     "dino": {
         "name": "Rex",
-        "species": "T-Rex",
+        "species": "Тираннозавр",
         "godmode": [
-            r"         __    ⚡ GOD MODE ⚡",
-            r"       /⌐■_)   RAWR! {commits} COMMITS!",
-            r"  .-^^^-/ /    I AM APEX DEVELOPER!",
+            r"         __    ⚡ РЕЖИМ БОГА ⚡",
+            r"       /⌐■_)   РРРАВР! {commits} КОММИТОВ!",
+            r"  .-^^^-/ /    Я ВЕРШИНА ЭВОЛЮЦИИ ДЕВЕЛОПЕРОВ!",
             r" __/       / ",
             r"<__.|_|-|_|  ",
         ],
         "super_happy": [
-            r"         __    ✨ FULL OF ENERGY ✨",
-            r"       /(^‿_)  RAWR! {commits} commits!",
-            r"  .-^^^-/ /    T-Rex is feasting well!",
+            r"         __    ✨ ПОЛОН ЭНЕРГИИ ✨",
+            r"       /(^‿_)  РРРАВР! {commits} коммитов!",
+            r"  .-^^^-/ /    Динозавр сыт и доволен!",
             r" __/       / ",
             r"<__.|_|-|_|  ",
         ],
         "happy": [
             r"         __  ",
-            r"       /(•‿_)  {commits} commits today",
-            r"  .-^^^-/ /    Good job stomping bugs!",
+            r"       /(•‿_)  {commits} коммитов сегодня",
+            r"  .-^^^-/ /    Отлично растаптываешь баги!",
             r" __/       / ",
             r"<__.|_|-|_|  ",
         ],
         "hungry": [
-            r"         __    💧 STARVING",
-            r"       /(╥﹏_) 0 commits today",
-            r"  .-^^^-/ /    Stomach rumbling...",
+            r"         __    💧 ГОЛОДНЫЙ ХИЩНИК",
+            r"       /(╥﹏_) 0 коммитов сегодня",
+            r"  .-^^^-/ /    В животе урчит...",
             r" __/       / ",
             r"<__.|_|-|_|  ",
         ],
         "dead": [
-            r"         __    💀 EXTINCT",
-            r"       /(x._)  No commits in sight",
-            r"  .-^^^-/ /    Turned into a fossil...",
+            r"         __    💀 ВЫМЕРШИЙ",
+            r"       /(x._)  Никаких коммитов",
+            r"  .-^^^-/ /    Окаменел от тоски...",
             r" __/       / ",
             r"<__.|_|-|_|  ",
         ],
     },
     "crab": {
         "name": "Ferris",
-        "species": "Rust Crab",
+        "species": "Rust-Краб",
         "godmode": [
-            r"     (\_/)     🦀 MAXIMUM CRAB POWER 🦀",
-            r"    (⌐■_■)    {commits} COMMITS! ZERO COST!",
-            r"   /|  ⚡  |\  Memory safe & blazing fast!",
+            r"     (\_/)     🦀 МАКСИМАЛЬНАЯ МОЩЬ RUST 🦀",
+            r"    (⌐■_■)    {commits} КОММИТОВ! БЕЗ ОВЕРХЕДА!",
+            r"   /|  ⚡  |\  Безопасная память и дикая скорость!",
             r"  / |_|_|_| \ ",
         ],
         "super_happy": [
-            r"     (\_/)     ✨ CRAB PARTY ✨",
-            r"    (^ ‿ ^)   {commits} commits today!",
-            r"   /|  🦀  |\  *Happy clacking sounds*",
+            r"     (\_/)     ✨ КЛЕШНЕВАЯ ВЕЧЕРИНКА ✨",
+            r"    (^ ‿ ^)   {commits} коммитов сегодня!",
+            r"   /|  🦀  |\  *Радостное щёлканье клешнями*",
             r"  / |_|_|_| \ ",
         ],
         "happy": [
             r"     (\_/)   ",
-            r"    (• ‿ •)   {commits} commits today",
-            r"   /|     |\   Clack clack! Nice code!",
+            r"    (• ‿ •)   {commits} коммитов сегодня",
+            r"   /|     |\   Клак-клак! Отличный код!",
             r"  / |_|_|_| \ ",
         ],
         "hungry": [
-            r"     (\_/)     💧 HUNGRY CRAB",
-            r"    (╥ ﹏ ╥)  0 commits today",
-            r"   /|  ~  |\   Rust compiler is sad...",
+            r"     (\_/)     💧 ГОЛОДНЫЙ КРАБИК",
+            r"    (╥ ﹏ ╥)  0 коммитов сегодня",
+            r"   /|  ~  |\   Компилятор Rust грустит...",
             r"  / |_|_|_| \ ",
         ],
         "dead": [
-            r"     (\_/)     💀 BOILED CRAB",
-            r"    (x . x)   0 commits for days",
+            r"     (\_/)     💀 ВАРЕНЫЙ КРАБ",
+            r"    (x . x)   0 коммитов за дни",
             r"   /|  -  |\   Segmentation fault...",
             r"  / |_|_|_| \ ",
         ],
     },
     "dog": {
         "name": "Shiba",
-        "species": "Shiba Inu",
+        "species": "Сиба-ину",
         "godmode": [
-            r"    / \__      🐕 MUCH COMMITS! VERY 10X! 🐕",
-            r"   (    ⌐■\___ {commits} COMMITS TODAY! WOW!",
-            r"   /  ⚡      O SUCH PRODUCTION! VERY SPEED!",
+            r"    / \__      🐕 СТОЛЬКО КОММИТОВ! ВАУ! 🐕",
+            r"   (    ⌐■\___ {commits} КОММИТОВ! ТАКОЙ СЕНЬОР!",
+            r"   /  ⚡      O СВЕРХСКОРОСТНОЙ ДЕПЛОЙ!",
             r"  /   (_____/ ",
             r" /_____/   U  ",
         ],
         "super_happy": [
-            r"    / \__      ✨ HAPPY DOGE ✨",
-            r"   (    ^ \___ {commits} commits today! Woof!",
-            r"   /  💖      O *Tails wagging at maximum speed*",
+            r"    / \__      ✨ СЧАСТЛИВЫЙ ДОГЕ ✨",
+            r"   (    ^ \___ {commits} коммитов сегодня! Гав!",
+            r"   /  💖      O *Хвост виляет на сверхзвуковой скорости*",
             r"  /   (_____/ ",
             r" /_____/   U  ",
         ],
         "happy": [
             r"    / \__     ",
-            r"   (    • \___ {commits} commits today",
-            r"   /          O Woof! Good job human!",
+            r"   (    • \___ {commits} коммитов сегодня",
+            r"   /          O Гав! Отличная работа, человек!",
             r"  /   (_____/ ",
             r" /_____/   U  ",
         ],
         "hungry": [
-            r"    / \__      💧 HUNGRY DOGE",
-            r"   (    ╥ \___ 0 commits today",
-            r"   /  ~       O *Whimpers for commits*",
+            r"    / \__      💧 ГОЛОДНЫЙ ПЁСИК",
+            r"   (    ╥ \___ 0 коммитов сегодня",
+            r"   /  ~       O *Тихонько скулит и просит код*",
             r"  /   (_____/ ",
             r" /_____/   U  ",
         ],
         "dead": [
-            r"    / \__      💀 SLEEPING DOGE",
-            r"   (    x \___ 0 commits for days",
-            r"   /          O Zzz... Dreaming of git pushes",
+            r"    / \__      💀 СПЯЩИЙ ДОГЕ",
+            r"   (    x \___ 0 коммитов за много дней",
+            r"   /          O Хрр... Спит и видит git push",
             r"  /   (_____/ ",
             r" /_____/   U  ",
         ],
@@ -173,29 +173,28 @@ PETS = {
 }
 
 QUOTES_GODMODE = [
-    "🔥 20+ COMMITS TODAY! Your GitHub heatmap is blinding everyone!",
-    "🚀 Keyboard on fire! Legendary productivity detected!",
-    "⚡ Absolute 10x developer energy! Nothing can stop you!",
-    "⭐ The green graph is singing your praises!",
+    "🔥 20+ коммитов сегодня! Твой график активности на GitHub ослепляет всех!",
+    "🚀 Клавиатура пылает! Зафиксирована легендарная продуктивность!",
+    "⚡ Энергия абсолютного 10x разработчика! Тебя не остановить!",
+    "⭐ Зеленый график на GitHub поет тебе дифирамбы!",
 ]
 
 QUOTES_HAPPY = [
-    "✨ You pushed commits! I am feeling strong and full!",
-    "💻 Great code today! My hunger meter is satisfied!",
-    "🌟 Clean commits, clean code, happy pet!",
+    "✨ Свежие коммиты! Питомец полон сил и энергии!",
+    "💻 Отличный код сегодня! Шкала сытости удовлетворена!",
+    "🌟 Чистые коммиты, аккуратный код, счастливый питомец!",
 ]
 
 QUOTES_HUNGRY = [
-    "🥺 Haven't seen a commit yet today... just a small one?",
-    "🍕 Even 'git commit -m \"fix\"' counts as a snack!",
-    "💭 Dreaming of fresh diffs and git pushes...",
+    "🥺 Сегодня еще не было коммитов... хотя бы один маленький?",
+    "🍕 Даже 'git commit -m \"fix\"' сойдет за вкусный перекус!",
+    "💭 Питомец мечтает о свежих диффах и пушах в репозиторий...",
 ]
 
 
 def count_today_git_commits() -> int:
     """Scan current git repo or return 0 if not a repo or no commits today."""
     try:
-        # Midnight today
         today_midnight = datetime.datetime.now().strftime("%Y-%m-%d 00:00:00")
         res = subprocess.run(
             ["git", "log", f"--since={today_midnight}", "--oneline"],
@@ -245,25 +244,25 @@ def render_card(pet_type: str, commits: int, state: dict):
     # Determine mood
     if commits >= 20:
         mood_key = "godmode"
-        mood_label = "🔥 GODLIKE (10x Dev)"
+        mood_label = "🔥 БОЖЕСТВЕННОЕ (10x Dev)"
         hunger = 100
         energy = 100
         quote = random.choice(QUOTES_GODMODE)
     elif commits >= 5:
         mood_key = "super_happy"
-        mood_label = "✨ ECSTATIC"
+        mood_label = "✨ ВОСТОРГ"
         hunger = 95
         energy = 90
         quote = random.choice(QUOTES_HAPPY)
     elif commits >= 1:
         mood_key = "happy"
-        mood_label = "😊 CONTENT"
+        mood_label = "😊 ДОВОЛЕН"
         hunger = 70
         energy = 75
         quote = random.choice(QUOTES_HAPPY)
     else:
         mood_key = "hungry"
-        mood_label = "🥺 STARVING"
+        mood_label = "🥺 ГОЛОДАЕТ"
         hunger = 15
         energy = 25
         quote = random.choice(QUOTES_HUNGRY)
@@ -275,7 +274,8 @@ def render_card(pet_type: str, commits: int, state: dict):
     border_bot = "╰" + "─" * 48 + "╯"
 
     print("\n" + border_top)
-    print(f"│  👾 COMMIT-GOTCHI: {pet_data['name']} the {pet_data['species']}".ljust(49) + "│")
+    header = f"│  👾 COMMIT-GOTCHI: {pet_data['name']} ({pet_data['species']})"
+    print(header.ljust(49) + "│")
     print("├" + "─" * 48 + "┤")
 
     for line in art_lines:
@@ -283,11 +283,11 @@ def render_card(pet_type: str, commits: int, state: dict):
         print(f"│  {formatted}".ljust(49) + "│")
 
     print("├" + "─" * 48 + "┤")
-    print(f"│  Mood:       {mood_label}".ljust(49) + "│")
-    print(f"│  Commits:    {commits} today".ljust(49) + "│")
-    print(f"│  Satiety:    [{draw_bar(hunger)}] {hunger}%".ljust(49) + "│")
-    print(f"│  Energy:     [{draw_bar(energy)}] {energy}%".ljust(49) + "│")
-    print(f"│  Happiness:  [{draw_bar(happiness)}] {happiness}%".ljust(49) + "│")
+    print(f"│  Настроение: {mood_label}".ljust(49) + "│")
+    print(f"│  Коммитов:   {commits} сегодня".ljust(49) + "│")
+    print(f"│  Сытость:    [{draw_bar(hunger)}] {hunger}%".ljust(49) + "│")
+    print(f"│  Энергия:    [{draw_bar(energy)}] {energy}%".ljust(49) + "│")
+    print(f"│  Счастье:    [{draw_bar(happiness)}] {happiness}%".ljust(49) + "│")
     print("├" + "─" * 48 + "┤")
     print(f"│  💬 \"{quote}\"".ljust(49) + "│")
     print(border_bot + "\n")
@@ -300,44 +300,44 @@ def cmd_pet(state: dict, pet_type: str):
     save_state(state)
 
     pet_name = PETS.get(pet_type, PETS["cat"])["name"]
-    print(f"\n💖 You gently petted {pet_name}!")
-    print(f"   {pet_name} purrs happily! (+15% Happiness)")
-    print(f"   Total pats given: {state['total_pets']}\n")
+    print(f"\n💖 Вы нежно погладили {pet_name}!")
+    print(f"   {pet_name} довольно мурлычет! (+15% к Счастью)")
+    print(f"   Всего поглаживаний: {state['total_pets']}\n")
 
 
 def cmd_feed(state: dict, commits_add: int):
     state["bonus_commits"] = state.get("bonus_commits", 0) + commits_add
     state["happiness"] = min(100, state.get("happiness", 80) + 20)
     save_state(state)
-    print(f"\n🍣 Fed {commits_add} tasty commit snack(s) to your gotchi!")
-    print("   Nom nom nom! Burp! ✨\n")
+    print(f"\n🍣 Вы скормили {commits_add} вкусный(х) коммит-снек(ов)!")
+    print("   Ням-ням-ням! Питомец сыт и благодарен! ✨\n")
 
 
 def cmd_watch(pet_type: str, commits: int, state: dict):
     """Simple animated watch mode."""
-    print("👀 Watching Commit-Gotchi... (Press Ctrl+C to exit)\n")
+    print("👀 Наблюдаем за Commit-Gotchi... (Нажмите Ctrl+C для выхода)\n")
     frames = [
-        "   (^ ‿ ^)  *wag wag*",
-        "   (^ ‿ -)  *wink*",
-        "   (• ‿ •)  *blink*",
-        "   (⌐■_■)  *sunglasses shine*",
+        "   (^ ‿ ^)  *виляет хвостиком*",
+        "   (^ ‿ -)  *подмигивает*",
+        "   (• ‿ •)  *моргает*",
+        "   (⌐■_■)  *поправляет очки*",
     ]
     try:
         while True:
             for f in frames:
-                sys.stdout.write(f"\r  {f}  [Commits: {commits}] ")
+                sys.stdout.write(f"\r  {f}  [Коммитов: {commits}] ")
                 sys.stdout.flush()
                 time.sleep(0.7)
     except KeyboardInterrupt:
-        print("\n👋 See you soon!")
+        print("\n👋 До скорой встречи!")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Commit-Gotchi: Terminal virtual pet powered by Git")
-    parser.add_argument("command", nargs="?", default="status", choices=["status", "pet", "feed", "watch", "reset"], help="Action to perform")
-    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog"], default=None, help="Choose your pet companion")
-    parser.add_argument("--commits", type=int, default=None, help="Simulate or override today's commit count")
-    parser.add_argument("--feed-snack", type=int, default=1, help="Number of snacks to feed with 'feed'")
+    parser = argparse.ArgumentParser(description="Commit-Gotchi: Виртуальный терминальный питомец, питающийся коммитами")
+    parser.add_argument("command", nargs="?", default="status", choices=["status", "pet", "feed", "watch", "reset"], help="Действие с питомцем")
+    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog"], default=None, help="Выбрать вид питомца")
+    parser.add_argument("--commits", type=int, default=None, help="Симулировать или задать количество коммитов на сегодня")
+    parser.add_argument("--feed-snack", type=int, default=1, help="Количество снеков для команды 'feed'")
 
     args = parser.parse_args()
     state = load_state()
@@ -368,7 +368,7 @@ def main():
     elif args.command == "reset":
         if STATE_FILE.exists():
             STATE_FILE.unlink()
-        print("🔄 State reset to defaults.")
+        print("🔄 Настройки сброшены к начальным значениям.")
 
 
 if __name__ == "__main__":
