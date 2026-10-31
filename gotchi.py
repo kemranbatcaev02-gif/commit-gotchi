@@ -170,6 +170,40 @@ PETS = {
             r" /_____/   U  ",
         ],
     },
+    "duck": {
+        "name": "Ducky",
+        "species": "Резиновая уточка",
+        "godmode": [
+            r"      __       🦆 РЕЖИМ БОГА ДЕБАГА 🦆",
+            r"   <(o )___-  (⌐■_■) {commits} КОММИТОВ!",
+            r"    ( ._> /    КРЯ! ВСЕ БАГИ УНИЧТОЖЕНЫ!",
+            r"     `---' ",
+        ],
+        "super_happy": [
+            r"      __       ✨ КРЯ-ВЕЧЕРИНКА ✨",
+            r"   <(o )___-  (^ ‿ ^) {commits} коммитов!",
+            r"    ( ._> /    Метод уточки творит чудеса!",
+            r"     `---' ",
+        ],
+        "happy": [
+            r"      __     ",
+            r"   <(• )___-  (• ‿ •) {commits} коммитов",
+            r"    ( ._> /    Кря! Расскажи мне про свой код!",
+            r"     `---' ",
+        ],
+        "hungry": [
+            r"      __       💧 ГРУСТНАЯ УТОЧКА",
+            r"   <(╥ )___-  0 коммитов сегодня",
+            r"    ( ._> /    *Тихое тоскливое кряканье...*",
+            r"     `---' ",
+        ],
+        "dead": [
+            r"      __       💀 УТОНУЛА",
+            r"   <(x )___-  0 коммитов за дни",
+            r"    ( ._> /    Ушла на дно ванной...",
+            r"     `---' ",
+        ],
+    },
 }
 
 QUOTES_GODMODE = [
@@ -208,6 +242,45 @@ def count_today_git_commits() -> int:
     except Exception:
         pass
     return 0
+
+
+def calculate_git_streak() -> int:
+    """Calculates current streak of consecutive days with commits."""
+    try:
+        res = subprocess.run(
+            ["git", "log", "--date=short", "--format=%ad"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            unique_dates = sorted(
+                list({datetime.date.fromisoformat(line.strip()) for line in res.stdout.splitlines() if line.strip()}),
+                reverse=True
+            )
+            if not unique_dates:
+                return 0
+
+            today = datetime.date.today()
+            streak = 0
+            current_check = today
+
+            if unique_dates[0] < today:
+                if unique_dates[0] == today - datetime.timedelta(days=1):
+                    current_check = today - datetime.timedelta(days=1)
+                else:
+                    return 0
+
+            for d in unique_dates:
+                if d == current_check:
+                    streak += 1
+                    current_check -= datetime.timedelta(days=1)
+                elif d < current_check:
+                    break
+            return max(1, streak)
+    except Exception:
+        pass
+    return 1
 
 
 def load_state() -> dict:
@@ -283,8 +356,12 @@ def render_card(pet_type: str, commits: int, state: dict):
         print(f"│  {formatted}".ljust(49) + "│")
 
     print("├" + "─" * 48 + "┤")
+    streak_val = calculate_git_streak()
+    if commits > 0 and streak_val == 0:
+        streak_val = 1
     print(f"│  Настроение: {mood_label}".ljust(49) + "│")
     print(f"│  Коммитов:   {commits} сегодня".ljust(49) + "│")
+    print(f"│  Стрик:      {streak_val} дн. 🔥".ljust(49) + "│")
     print(f"│  Сытость:    [{draw_bar(hunger)}] {hunger}%".ljust(49) + "│")
     print(f"│  Энергия:    [{draw_bar(energy)}] {energy}%".ljust(49) + "│")
     print(f"│  Счастье:    [{draw_bar(happiness)}] {happiness}%".ljust(49) + "│")
@@ -335,7 +412,7 @@ def cmd_watch(pet_type: str, commits: int, state: dict):
 def main():
     parser = argparse.ArgumentParser(description="Commit-Gotchi: Виртуальный терминальный питомец, питающийся коммитами")
     parser.add_argument("command", nargs="?", default="status", choices=["status", "pet", "feed", "watch", "reset"], help="Действие с питомцем")
-    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog"], default=None, help="Выбрать вид питомца")
+    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog", "duck"], default=None, help="Выбрать вид питомца")
     parser.add_argument("--commits", type=int, default=None, help="Симулировать или задать количество коммитов на сегодня")
     parser.add_argument("--feed-snack", type=int, default=1, help="Количество снеков для команды 'feed'")
 
