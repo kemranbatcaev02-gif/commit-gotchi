@@ -15,7 +15,7 @@ from gotchi import (
 
 class TestGotchi(unittest.TestCase):
     def test_pets_structure(self):
-        for pet_key in ["cat", "dino", "crab", "dog"]:
+        for pet_key in ["cat", "dino", "crab", "dog", "duck"]:
             self.assertIn(pet_key, PETS)
             data = PETS[pet_key]
             self.assertIn("name", data)
