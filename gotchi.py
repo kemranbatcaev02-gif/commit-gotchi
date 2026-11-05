@@ -204,6 +204,74 @@ PETS = {
             r"     `---' ",
         ],
     },
+    "dragon": {
+        "name": "Ignis",
+        "species": "Огненный Дракон",
+        "godmode": [
+            r"     / \   / \   🔥 ДРЕВНИЙ ДРАКОН ПРОДАКШЕНА 🔥",
+            r"    ( >.< )-( >.< ) {commits} КОММИТОВ! ДЫШИТ ОГНЕМ!",
+            r"   <  \  /   \  / > КЛАВИАТУРА ИСПАРИЛАСЬ В ПЕПЕЛ!",
+            r"    ===v=======v=== ",
+        ],
+        "super_happy": [
+            r"     / \   / \   ✨ ВЛАДЫКА РЕПОЗИТОРИЯ ✨",
+            r"    ( ^.^ )-( ^.^ ) {commits} коммитов сегодня!",
+            r"   <  \  /   \  / > Дремлет на золотых мерджах...",
+            r"    ===v=======v=== ",
+        ],
+        "happy": [
+            r"     / \   / \  ",
+            r"    ( •.• )-( •.• ) {commits} коммитов сегодня",
+            r"   <  \  /   \  / > Сытое урчание и снопы искр!",
+            r"    ===v=======v=== ",
+        ],
+        "hungry": [
+            r"     / \   / \   💧 ГОЛОДНЫЙ ДРАКОН",
+            r"    ( ╥.╥ )-( ╥.╥ ) 0 коммитов сегодня",
+            r"   <  \  /   \  / > Чешуя тускнеет без коммитов...",
+            r"    ===v=======v=== ",
+        ],
+        "dead": [
+            r"     / \   / \   💀 В ВЕКОВОЙ СПЯЧКЕ",
+            r"    ( x.x )-( x.x ) Никаких коммитов...",
+            r"   <  \  /   \  / > Окаменел в глубокой пещере.",
+            r"    ===v=======v=== ",
+        ],
+    },
+    "owl": {
+        "name": "Archie",
+        "species": "Сыч-Архитектор",
+        "godmode": [
+            r"     {o,o}   🦉 ЛЕГЕНДАРНЫЙ НОЧНОЙ СЫЧ 🦉",
+            r"     (⌐■_■)  {commits} КОММИТОВ! 3:00 AM DEPLOY!",
+            r"     --\"--\"- ВСЕ БАГИ ВИДНЫ В ТЕМНОТЕ!",
+            r"       ===   ",
+        ],
+        "super_happy": [
+            r"     {o,o}   ✨ МУДРЫЙ И СЫТЫЙ ✨",
+            r"     (^ ‿ ^) {commits} коммитов сегодня!",
+            r"     --\"--\"- Уху-уху! Изящная архитектура!",
+            r"       ===   ",
+        ],
+        "happy": [
+            r"     {o,o}  ",
+            r"     (• ‿ •) {commits} коммитов сегодня",
+            r"     --\"--\"- Уху! Чистый код и ровные диффы!",
+            r"       ===   ",
+        ],
+        "hungry": [
+            r"     {o,o}   💧 НЕДОСЫП И ГОЛОД",
+            r"     (╥ ﹏ ╥) 0 коммитов сегодня",
+            r"     --\"--\"- Кофе остыл, коммитов нет...",
+            r"       ===   ",
+        ],
+        "dead": [
+            r"     {x,x}   💀 СВАЛИЛСЯ С ВЕТКИ",
+            r"     (x . x) 0 коммитов за дни",
+            r"     --\"--\"- Хрр... Спит до следующего спринта.",
+            r"       ===   ",
+        ],
+    },
 }
 
 QUOTES_GODMODE = [
@@ -223,6 +291,54 @@ QUOTES_HUNGRY = [
     "🥺 Сегодня еще не было коммитов... хотя бы один маленький?",
     "🍕 Даже 'git commit -m \"fix\"' сойдет за вкусный перекус!",
     "💭 Питомец мечтает о свежих диффах и пушах в репозиторий...",
+]
+
+LEVEL_RANKS = [
+    (1, 0, "🐣 Intern Coder"),
+    (2, 25, "🌱 Junior Dev"),
+    (3, 75, "⚡ Middle Engineer"),
+    (4, 150, "🔥 Senior Architect"),
+    (5, 300, "👑 Lead Tech Guru"),
+    (6, 600, "🌟 Mythic 10x Legend"),
+]
+
+ACHIEVEMENTS = [
+    {
+        "id": "first_blood",
+        "title": "🩸 Первый коммит",
+        "desc": "Сделать свой первый коммит сегодня (>=1)",
+        "check": lambda c, st, s: c >= 1
+    },
+    {
+        "id": "streak_3",
+        "title": "🔥 В огне (3 дня)",
+        "desc": "Удерживать непрерывный стрик от 3 дней",
+        "check": lambda c, st, s: st >= 3
+    },
+    {
+        "id": "streak_7",
+        "title": "⚡ Недельный марафон",
+        "desc": "Удерживать стрик коммитов 7+ дней подряд",
+        "check": lambda c, st, s: st >= 7
+    },
+    {
+        "id": "pet_lover",
+        "title": "💖 Пушистый релакс",
+        "desc": "Погладить питомца не менее 5 раз",
+        "check": lambda c, st, s: s.get("total_pets", 0) >= 5
+    },
+    {
+        "id": "snack_master",
+        "title": "🍣 Гурман снеков",
+        "desc": "Скормить питомцу 3+ бонусных коммит-снека",
+        "check": lambda c, st, s: s.get("bonus_commits", 0) >= 3
+    },
+    {
+        "id": "godmode",
+        "title": "👑 Божественный режим",
+        "desc": "Набрать 20+ коммитов за один рабочий день",
+        "check": lambda c, st, s: c >= 20
+    },
 ]
 
 
@@ -283,6 +399,33 @@ def calculate_git_streak() -> int:
     return 1
 
 
+def calculate_xp_and_level(state: dict, today_commits: int) -> tuple[int, int, str, int, int]:
+    """Returns (xp, level, rank_title, cur_base, next_goal)"""
+    total_xp = (
+        state.get("lifetime_commits", 0)
+        + today_commits
+        + state.get("bonus_commits", 0) * 2
+        + state.get("total_pets", 0) * 3
+    )
+    level = 1
+    rank = LEVEL_RANKS[0][2]
+    cur_base = 0
+    next_goal = LEVEL_RANKS[1][1]
+
+    for lvl, threshold, title in LEVEL_RANKS:
+        if total_xp >= threshold:
+            level = lvl
+            rank = title
+            cur_base = threshold
+        else:
+            next_goal = threshold
+            break
+    else:
+        next_goal = cur_base + 300
+
+    return total_xp, level, rank, cur_base, next_goal
+
+
 def load_state() -> dict:
     if STATE_FILE.exists():
         try:
@@ -295,6 +438,7 @@ def load_state() -> dict:
         "bonus_commits": 0,
         "last_petted": None,
         "total_pets": 0,
+        "lifetime_commits": 35,
     }
 
 
@@ -306,6 +450,8 @@ def save_state(state: dict):
 
 
 def draw_bar(val: int, max_val: int = 100, width: int = 16) -> str:
+    if max_val <= 0:
+        return "░" * width
     filled = max(0, min(width, int((val / max_val) * width)))
     empty = width - filled
     return "█" * filled + "░" * empty
@@ -342,31 +488,38 @@ def render_card(pet_type: str, commits: int, state: dict):
 
     art_lines = pet_data[mood_key]
     happiness = min(100, state.get("happiness", 80))
-
-    border_top = "╭" + "─" * 48 + "╮"
-    border_bot = "╰" + "─" * 48 + "╯"
-
-    print("\n" + border_top)
-    header = f"│  👾 COMMIT-GOTCHI: {pet_data['name']} ({pet_data['species']})"
-    print(header.ljust(49) + "│")
-    print("├" + "─" * 48 + "┤")
-
-    for line in art_lines:
-        formatted = line.format(commits=commits)
-        print(f"│  {formatted}".ljust(49) + "│")
-
-    print("├" + "─" * 48 + "┤")
     streak_val = calculate_git_streak()
     if commits > 0 and streak_val == 0:
         streak_val = 1
-    print(f"│  Настроение: {mood_label}".ljust(49) + "│")
-    print(f"│  Коммитов:   {commits} сегодня".ljust(49) + "│")
-    print(f"│  Стрик:      {streak_val} дн. 🔥".ljust(49) + "│")
-    print(f"│  Сытость:    [{draw_bar(hunger)}] {hunger}%".ljust(49) + "│")
-    print(f"│  Энергия:    [{draw_bar(energy)}] {energy}%".ljust(49) + "│")
-    print(f"│  Счастье:    [{draw_bar(happiness)}] {happiness}%".ljust(49) + "│")
-    print("├" + "─" * 48 + "┤")
-    print(f"│  💬 \"{quote}\"".ljust(49) + "│")
+
+    total_xp, level, rank_title, cur_base, next_goal = calculate_xp_and_level(state, commits)
+    span = max(1, next_goal - cur_base)
+    prog = max(0, min(span, total_xp - cur_base))
+    lvl_bar = draw_bar(prog, span, width=12)
+
+    border_top = "╭" + "─" * 52 + "╮"
+    border_bot = "╰" + "─" * 52 + "╯"
+
+    print("\n" + border_top)
+    header = f"│  👾 COMMIT-GOTCHI: {pet_data['name']} ({pet_data['species']})"
+    print(header.ljust(53) + "│")
+    print("├" + "─" * 52 + "┤")
+
+    for line in art_lines:
+        formatted = line.format(commits=commits)
+        print(f"│  {formatted}".ljust(53) + "│")
+
+    print("├" + "─" * 52 + "┤")
+    print(f"│  Уровень:    LVL {level} [{lvl_bar}] {total_xp} XP".ljust(53) + "│")
+    print(f"│  Ранг:       {rank_title}".ljust(53) + "│")
+    print(f"│  Настроение: {mood_label}".ljust(53) + "│")
+    print(f"│  Коммитов:   {commits} сегодня".ljust(53) + "│")
+    print(f"│  Стрик:      {streak_val} дн. непрерывно 🔥".ljust(53) + "│")
+    print(f"│  Сытость:    [{draw_bar(hunger)}] {hunger}%".ljust(53) + "│")
+    print(f"│  Энергия:    [{draw_bar(energy)}] {energy}%".ljust(53) + "│")
+    print(f"│  Счастье:    [{draw_bar(happiness)}] {happiness}%".ljust(53) + "│")
+    print("├" + "─" * 52 + "┤")
+    print(f"│  💬 \"{quote}\"".ljust(53) + "│")
     print(border_bot + "\n")
 
 
@@ -378,7 +531,7 @@ def cmd_pet(state: dict, pet_type: str):
 
     pet_name = PETS.get(pet_type, PETS["cat"])["name"]
     print(f"\n💖 Вы нежно погладили {pet_name}!")
-    print(f"   {pet_name} довольно мурлычет! (+15% к Счастью)")
+    print(f"   {pet_name} довольно мурлычет! (+15% к Счастью, +3 XP)")
     print(f"   Всего поглаживаний: {state['total_pets']}\n")
 
 
@@ -388,6 +541,66 @@ def cmd_feed(state: dict, commits_add: int):
     save_state(state)
     print(f"\n🍣 Вы скормили {commits_add} вкусный(х) коммит-снек(ов)!")
     print("   Ням-ням-ням! Питомец сыт и благодарен! ✨\n")
+
+
+def cmd_achievements(state: dict, today_commits: int):
+    streak_val = calculate_git_streak()
+    if today_commits > 0 and streak_val == 0:
+        streak_val = 1
+
+    border_top = "╭" + "─" * 56 + "╮"
+    border_bot = "╰" + "─" * 56 + "╯"
+
+    print("\n" + border_top)
+    print("│  🏆 ДОСТИЖЕНИЯ И НАГРАДЫ COMMIT-GOTCHI".ljust(57) + "│")
+    print("├" + "─" * 56 + "┤")
+
+    unlocked_count = 0
+    for ach in ACHIEVEMENTS:
+        is_unlocked = ach["check"](today_commits, streak_val, state)
+        if is_unlocked:
+            unlocked_count += 1
+            mark = "✅ [ОТКРЫТО]"
+        else:
+            mark = "🔒 [ЗАКРЫТО]"
+
+        title_line = f"│  {mark} {ach['title']}"
+        desc_line = f"│     └─ {ach['desc']}"
+        print(title_line.ljust(57) + "│")
+        print(desc_line.ljust(57) + "│")
+
+    print("├" + "─" * 56 + "┤")
+    print(f"│  Прогресс: {unlocked_count}/{len(ACHIEVEMENTS)} достижений разблокировано".ljust(57) + "│")
+    print(border_bot + "\n")
+
+
+def cmd_export_badge(state: dict, pet_type: str, today_commits: int, fmt: str):
+    pet_data = PETS.get(pet_type, PETS["cat"])
+    p_name = pet_data["name"]
+    total_xp, level, rank_title, _, _ = calculate_xp_and_level(state, today_commits)
+
+    clean_rank = rank_title.split()[-1]
+    badge_label = f"Gotchi-{p_name}"
+    badge_message = f"LVL_{level}_{clean_rank}"
+    badge_url = f"https://img.shields.io/badge/{badge_label}-{badge_message}-orange?style=flat-square&logo=github"
+    md_badge = f"[![Commit-Gotchi]({badge_url})](https://github.com/kemranbatcaev02-gif/commit-gotchi)"
+
+    if fmt == "url":
+        print(badge_url)
+    elif fmt == "json":
+        data = {
+            "pet": p_name,
+            "species": pet_data["species"],
+            "level": level,
+            "rank": rank_title,
+            "xp": total_xp,
+            "badge_url": badge_url,
+            "markdown": md_badge,
+        }
+        print(json.dumps(data, ensure_ascii=False, indent=2))
+    else:
+        print("\n📋 Скопируйте этот Markdown-код в свой GitHub README.md:\n")
+        print(f"```markdown\n{md_badge}\n```\n")
 
 
 def cmd_watch(pet_type: str, commits: int, state: dict):
@@ -410,11 +623,25 @@ def cmd_watch(pet_type: str, commits: int, state: dict):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Commit-Gotchi: Виртуальный терминальный питомец, питающийся коммитами")
-    parser.add_argument("command", nargs="?", default="status", choices=["status", "pet", "feed", "watch", "reset"], help="Действие с питомцем")
-    parser.add_argument("--pet", choices=["cat", "dino", "crab", "dog", "duck"], default=None, help="Выбрать вид питомца")
+    parser = argparse.ArgumentParser(
+        description="Commit-Gotchi 👾: Виртуальный терминальный питомец, питающийся коммитами"
+    )
+    parser.add_argument(
+        "command",
+        nargs="?",
+        default="status",
+        choices=["status", "pet", "feed", "watch", "reset", "achievements", "export-badge"],
+        help="Действие с питомцем",
+    )
+    parser.add_argument(
+        "--pet",
+        choices=["cat", "dino", "crab", "dog", "duck", "dragon", "owl"],
+        default=None,
+        help="Выбрать вид питомца",
+    )
     parser.add_argument("--commits", type=int, default=None, help="Симулировать или задать количество коммитов на сегодня")
     parser.add_argument("--feed-snack", type=int, default=1, help="Количество снеков для команды 'feed'")
+    parser.add_argument("--format", choices=["markdown", "url", "json"], default="markdown", help="Формат вывода для export-badge")
 
     args = parser.parse_args()
     state = load_state()
@@ -440,6 +667,10 @@ def main():
         cmd_feed(state, args.feed_snack)
         today_commits += args.feed_snack
         render_card(active_pet, today_commits, state)
+    elif args.command == "achievements":
+        cmd_achievements(state, today_commits)
+    elif args.command == "export-badge":
+        cmd_export_badge(state, active_pet, today_commits, args.format)
     elif args.command == "watch":
         cmd_watch(active_pet, today_commits, state)
     elif args.command == "reset":
